@@ -33,7 +33,9 @@ export class PhrasesListComponent implements OnInit {
   }
 
   onSelect(phrase: Phrase): void {
-    this.router.navigate(['phrases', phrase.id]).then();
+    this.router.navigate([phrase.id], {
+      relativeTo: this.ActivatedRoute
+    }).then();
   }
 
   isSelected(phrase: Phrase): boolean {

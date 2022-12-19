@@ -34,11 +34,14 @@ export class PhraseDetailsComponent implements OnInit {
   }
 
   gotoPhrasesList(): void {
+
     this.router.navigate(['/phrases', {
       id: this.phrase?.id,
       param1: 'test',
       param2: 'test',
-    }]).then();
+    }], {
+      relativeTo: this.activatedRoute
+    }).then();
   }
 
 }
