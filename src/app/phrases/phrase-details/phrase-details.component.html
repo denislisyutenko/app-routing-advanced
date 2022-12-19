@@ -1,7 +1,7 @@
 <div *ngIf="phrase; then thenBlock; else elseBlock"></div>
 
 <ng-template #thenBlock>
-  <h2>Selected Phrase Details</h2>
+  <h3>Selected Phrase Details</h3>
 
   <div>ID: {{phrase?.id}}</div>
   <div>Value: {{phrase?.value}}</div>
