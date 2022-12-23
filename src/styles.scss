@@ -76,4 +76,12 @@ nav {
   }
 }
 
+.inLine-btn {
+  display: inline-block;
+  margin-right: 1em;
+
+  + .btn-group {
+    display: inline-block;
+  }
+}
 

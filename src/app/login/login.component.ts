@@ -24,17 +24,15 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.setMessage('Trying to long in...');
-    this.authService.login(this.userLogin, this.userPassword).then(
-      res => {
-        console.log(`Login promise result ${res}`);
+    this.authService.login(this.userLogin, this.userPassword).subscribe({
+      next: res => {
+        console.log(`Login observable result ${res}`);
         this.setMessage();
         if (!this.authService.isLoggedIn) return;
-
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
         this.router.navigate([redirect]).then();
-
       }
-    );
+    });
   }
 
   logout(): void {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Phrase} from '../../shared/phrase';
 import {PhrasesService} from '../../shared/phrases.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../shared/auth.service';
 
 @Component({
   selector: 'app-phrase-details',
@@ -11,11 +12,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class PhraseDetailsComponent implements OnInit {
 
   phrase?: Phrase;
+  editValue?: string;
+  editLanguage?: string;
 
   constructor(private phrasesService: PhrasesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private ActivatedRoute: ActivatedRoute) {
+              public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +30,11 @@ export class PhraseDetailsComponent implements OnInit {
 
         this.phrasesService
           .getPhrase(id)
-          .then(result => this.phrase = result);
+          .then(result => {
+            this.phrase = result;
+            this.editValue = this.phrase?.value;
+            this.editLanguage = this.phrase?.language;
+          });
       },
       error: err => console.log(err)
     });
@@ -42,6 +49,17 @@ export class PhraseDetailsComponent implements OnInit {
     }], {
       relativeTo: this.activatedRoute
     }).then();
+  }
+
+  isChanged(): boolean {
+    return !(this.phrase?.value === this.editValue && this.phrase?.language === this.editLanguage);
+  }
+
+  save(): void {
+    if (this.phrase) {
+      this.phrase.value = this.editValue || 'empty';
+      this.phrase.language = this.editLanguage || 'empty';
+    }
   }
 
 }
