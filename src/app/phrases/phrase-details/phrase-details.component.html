@@ -1,23 +1,15 @@
-<div *ngIf="phrase; then thenBlock; else elseBlock"></div>
-
-<div class="btn-group">
-  <button (click)="gotoPhrasesList()" type="button">Go to Phrases list</button>
-</div>
-
-
-<ng-template #thenBlock>
+<div>
   <h3>Selected Phrase Details</h3>
 
-  <div>ID: {{phrase?.id}}</div>
+  <div>ID: {{phrase.id}}</div>
 
+  <ng-container *ngIf="authService.isLoggedIn; then isAuth; else notIsAuth"></ng-container>
 
-  <div *ngIf="authService.isLoggedIn; then isAuth; else notIsAuth"></div>
-</ng-template>
+  <div class="btn-group">
+    <button (click)="gotoPhrasesList()" type="button">Go to Phrases list</button>
+  </div>
 
-
-<ng-template #elseBlock>
-  <h2>Phrase Details not found</h2>
-</ng-template>
+</div>
 
 <ng-template #isAuth>
   <div>Value: <input [(ngModel)]="editValue" type="text"></div>
@@ -28,7 +20,6 @@
 </ng-template>
 
 <ng-template #notIsAuth>
-  <div>Value: {{phrase?.value}}</div>
-  <div>Language: {{phrase?.language}}</div>
+  <div>Value: {{phrase.value}}</div>
+  <div>Language: {{phrase.language}}</div>
 </ng-template>
-

@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {PhraseDetailsComponent} from './phrase-details/phrase-details.component';
 import {PhrasesHostComponent} from './phrases-host/phrases-host.component';
 import {PhrasesListComponent} from './phrases-list/phrases-list.component';
+import {CanDeactivateGuard} from '../shared/can-deactivate.guard';
+import {PhraseDetailsResolver} from '../shared/phrase-details.resolver';
 
 const routes: Routes = [
   {
@@ -15,7 +17,11 @@ const routes: Routes = [
         children: [
           {
             path: ':id',
-            component: PhraseDetailsComponent
+            component: PhraseDetailsComponent,
+            canDeactivate: [CanDeactivateGuard],
+            resolve: {
+              phrase: PhraseDetailsResolver
+            }
           },
         ]
       }
